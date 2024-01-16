@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function UsersPokemons(props){
     
   const [usersPokemonsName, setUsersPokemonsName] = useState([]);
+  const [pickedPokemon, setpickedPokemon] = useState("")
 
   const usersPokemon = [
     "https://pokeapi.co/api/v2/pokemon/bulbasaur",
@@ -20,7 +21,10 @@ export default function UsersPokemons(props){
           const pokemonData = await response.json();
           return {
             name: pokemonData.name,
-            img: pokemonData.sprites.front_default
+            img: pokemonData.sprites.front_default,
+            hp: pokemonData.stats[0].base_stat,
+            attack: pokemonData.stats[1].base_stat,
+            deffense: pokemonData.stats[2].base_stat
           };
         });
   
@@ -35,19 +39,47 @@ export default function UsersPokemons(props){
     fetchUsersPokemons();
   }, []);
 
-  const handleChoose = (event) =>{
-    console.log("You chose:" + event.target.textContent);
-  }
+  const handleChoose = async (event) => {
 
-  return(
-    <div>
-    <h2>Your pokemons:</h2>
-      <ul>
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${event.target.id.toLowerCase()}`);
+    const data = await response.json();
+    setpickedPokemon({
+      name: data.name,
+      img: data.sprites.front_default,
+      hp: data.stats[0].base_stat,
+      attack: data.stats[1].base_stat,
+      deffense: data.stats[2].base_stat
+    })
+  }
+  return (
+    pickedPokemon === "" ? (
+      <div>
+        <h2>Pick a pokemon:</h2>
         {usersPokemonsName.map((pokemon, index) => (
-          <li onClick={handleChoose} key={index}>{pokemon.name}<img src={pokemon.img} alt="" /></li>
+          <div id={pokemon.name} key={index}>
+            <h2 id="user-pokemon">{pokemon.name}</h2>
+            <img src={pokemon.img} alt={pokemon.name} />
+            <p>
+              HP: {pokemon.hp}<br></br>
+              ATK: {pokemon.attack}<br></br>
+              DEF: {pokemon.deffense}<br></br>
+            </p>
+            <button id={pokemon.name} onClick={handleChoose}>Pick {pokemon.name}</button>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    ) : (
+      <div id='choosen-pokemon'>
+        <h2>Your choice:</h2>
+        <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
+        <img src={pickedPokemon.img} alt="" />
+        <p>
+          HP: {pickedPokemon.hp}<br></br>
+          ATK: {pickedPokemon.attack}<br></br>
+          DEF: {pickedPokemon.deffense}<br></br>
+        </p>
+      </div>
+    )
   )
 
 }

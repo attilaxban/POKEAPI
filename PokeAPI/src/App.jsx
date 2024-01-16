@@ -6,14 +6,12 @@ import Battle from './components/Battle';
 import UsersPokemons from './components/UsersPokemons';
 import NoFoundPokemon from './components/NoFoundPokemon';
 import FoundPokemon from './components/FoundPokemon';
+import EnemyPokemon from './components/EnemyPokemon';
 
 function App() {
   
   const [page, setPage] = useState('locations')
-  const [foundPokemon, setFoundPokemon] = useState({
-    name: '',
-    front_default: ''
-  });
+  const [foundPokemon, setFoundPokemon] = useState("");
    
   return page === "locations" ? (
     <div>
@@ -31,9 +29,13 @@ function App() {
     </div>
     
   ) : page === "usersPokemons" ? (
-      <div>
-        <UsersPokemons />
-        <h2>The enemy pokemon is: {foundPokemon.name} <img src={foundPokemon.front_default} alt="" /></h2>
+    <div>
+    <div id='pokemon-summary'>
+      <UsersPokemons />
+      <EnemyPokemon 
+      encounter={foundPokemon}/>
+      <button>Fight</button>
+      </div>
       </div>
   ) : (
       <div></div>
