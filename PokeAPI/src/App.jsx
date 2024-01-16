@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import DisplayLocations from './components/Locations';
 import './App.css';
 import Battle from './components/Battle';
+import UsersPokemons from './components/UsersPokemons';
 
 const locationURL = 'https://pokeapi.co/api/v2/location';
 
-const usersPokemon = [
+/* const usersPokemon = [
   "https://pokeapi.co/api/v2/pokemon/bulbasaur",
   "https://pokeapi.co/api/v2/pokemon/charizard",
   "https://pokeapi.co/api/v2/pokemon/poliwhirl"
-];
+]; */
 
 function App() {
   const [locations, setLocations] = useState([]);
@@ -20,7 +21,7 @@ function App() {
   });
   const [click, setClick] = useState(false);
   const [fight, setFight] = useState('');
-  const [usersPokemonsName, setUsersPokemonsName] = useState([]); // Added state for usersPokemonsName
+  /* const [usersPokemonsName, setUsersPokemonsName] = useState([]); */
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +72,7 @@ function App() {
   const handleFight = async () => {
     setFight(true);
 
-    try {
+    /* try {
       const fetchPromises = usersPokemon.map(async (pokemonUrl) => {
         const response = await fetch(pokemonUrl);
         const pokemonData = await response.json();
@@ -87,12 +88,12 @@ function App() {
       await Promise.all(fetchPromises);
     } catch (error) {
       console.error('Error fetching data:', error);
-    }
+    } */
   };
 
-  const handleChoose = (event) =>{
+  /* const handleChoose = (event) =>{
     console.log("You choose:" + event.target.textContent);
-  }
+  } */
 
   return !click ? (
     <ul>
@@ -118,14 +119,16 @@ function App() {
     </div>
   ) : (
     <div>
-    <h2>Your pokemons:</h2>
-      <ul>
+    {/*<h2>Your pokemons:</h2>
+      
+       <ul>
         {usersPokemonsName.map((pokemon, index) => (
           <><li onClick={handleChoose} key={index}>{pokemon.name}<img src={pokemon.img} alt="" /></li>
           
           </>
         ))}
-      </ul>
+      </ul> */}
+      <UsersPokemons />
 
       <h2>The enemy pokemon is: {foundPokemon.name} <img src={foundPokemon.front_default} alt="" /></h2>
       </div>
