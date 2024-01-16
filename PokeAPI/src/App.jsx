@@ -10,8 +10,9 @@ import EnemyPokemon from './components/EnemyPokemon';
 
 function App() {
   
-  const [page, setPage] = useState('locations')
+  const [page, setPage] = useState('locations');
   const [foundPokemon, setFoundPokemon] = useState("");
+  const [pickedPokemon, setPickedPokemon] = useState("");
    
   return page === "locations" ? (
     <div>
@@ -31,7 +32,7 @@ function App() {
   ) : page === "usersPokemons" ? (
     <div>
     <div id='pokemon-summary'>
-      <UsersPokemons />
+      <UsersPokemons pickedPokemon={pickedPokemon} setPickedPokemon={setPickedPokemon}/>
       <EnemyPokemon 
       encounter={foundPokemon}/>
       <button>Fight</button>

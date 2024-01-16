@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 export default function UsersPokemons(props){
     
-  const [usersPokemonsName, setUsersPokemonsName] = useState([]);
-  const [pickedPokemon, setpickedPokemon] = useState("")
+  const pickedPokemon = props.pickedPokemon
+  const setPickedPokemon = props.setPickedPokemon;
 
+  const [usersPokemonsName, setUsersPokemonsName] = useState([]);
+ 
   const usersPokemon = [
     "https://pokeapi.co/api/v2/pokemon/bulbasaur",
     "https://pokeapi.co/api/v2/pokemon/charizard",
@@ -43,7 +45,7 @@ export default function UsersPokemons(props){
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${event.target.id.toLowerCase()}`);
     const data = await response.json();
-    setpickedPokemon({
+    setPickedPokemon({
       name: data.name,
       img: data.sprites.front_default,
       hp: data.stats[0].base_stat,
