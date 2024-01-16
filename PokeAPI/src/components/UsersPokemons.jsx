@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 export default function UsersPokemons(props){
     
-  const pickedPokemon = props.pickedPokemon
+  //const pickedPokemon = props.pickedPokemon
   const setPickedPokemon = props.setPickedPokemon;
+  const setPage = props.setPage;
 
   const [usersPokemonsName, setUsersPokemonsName] = useState([]);
  
@@ -52,9 +53,10 @@ export default function UsersPokemons(props){
       attack: data.stats[1].base_stat,
       deffense: data.stats[2].base_stat
     })
+    setPage("battle");
   }
   return (
-    pickedPokemon === "" ? (
+    //pickedPokemon === "" ? (
       <div>
         <h2>Pick a pokemon:</h2>
         {usersPokemonsName.map((pokemon, index) => (
@@ -70,8 +72,8 @@ export default function UsersPokemons(props){
           </div>
         ))}
       </div>
-    ) : (
-      <div id='choosen-pokemon'>
+    //) : (
+      /* <div id='choosen-pokemon'>
         <h2>Your choice:</h2>
         <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
         <img src={pickedPokemon.img} alt="" />
@@ -80,8 +82,8 @@ export default function UsersPokemons(props){
           ATK: {pickedPokemon.attack}<br></br>
           DEF: {pickedPokemon.deffense}<br></br>
         </p>
-      </div>
+      </div> */
     )
-  )
+  //)
 
 }

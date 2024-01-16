@@ -6,7 +6,7 @@ import Battle from './components/Battle';
 import UsersPokemons from './components/UsersPokemons';
 import NoFoundPokemon from './components/NoFoundPokemon';
 import FoundPokemon from './components/FoundPokemon';
-import EnemyPokemon from './components/EnemyPokemon';
+
 
 function App() {
   
@@ -31,15 +31,18 @@ function App() {
     
   ) : page === "usersPokemons" ? (
     <div>
-    <div id='pokemon-summary'>
-      <UsersPokemons pickedPokemon={pickedPokemon} setPickedPokemon={setPickedPokemon}/>
-      <EnemyPokemon 
-      encounter={foundPokemon}/>
-      <button>Fight</button>
+      <UsersPokemons setPickedPokemon={setPickedPokemon} setPage={setPage}/>
+    </div>
+    
+  ) : page === "battle" ? (
+      <div>
+        <Battle pickedPokemon={pickedPokemon} foundPokemon={foundPokemon}/>
       </div>
-      </div>
+      
   ) : (
-      <div></div>
+    <div>
+
+    </div>
   )
 
 }
