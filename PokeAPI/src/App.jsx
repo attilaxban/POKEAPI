@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unknown-property */
+
 import React, { useState, useEffect } from 'react';
 import Locations from './components/Locations';
 import './App.css';
@@ -14,11 +14,7 @@ function App() {
     name: '',
     front_default: ''
   });
-  
-  /* const handleFight = async () => {
-    setPage("usersPokemons");
-  }; */
-
+   
   return page === "locations" ? (
     <div>
       <Locations setPage={setPage} setFoundPokemon={setFoundPokemon}/>
@@ -33,11 +29,7 @@ function App() {
     <div>
       <FoundPokemon setPage={setPage} foundPokemon={foundPokemon}/>
     </div>
-    /* <div className="pokemon-details">
-      <li>{foundPokemon.name}</li>
-      <img src={foundPokemon.front_default} alt="" />
-      <button onClick={handleFight}>Fight</button>
-    </div> */
+    
   ) : page === "usersPokemons" ? (
       <div>
         <UsersPokemons />
