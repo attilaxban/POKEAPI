@@ -5,19 +5,19 @@ import './App.css';
 import Battle from './components/Battle';
 import UsersPokemons from './components/UsersPokemons';
 import NoFoundPokemon from './components/NoFoundPokemon';
+import FoundPokemon from './components/FoundPokemon';
 
 function App() {
   
+  const [page, setPage] = useState('locations')
   const [foundPokemon, setFoundPokemon] = useState({
     name: '',
     front_default: ''
   });
-  const [page, setPage] = useState('locations')
-
-  const handleFight = async () => {
+  
+  /* const handleFight = async () => {
     setPage("usersPokemons");
-
-  };
+  }; */
 
   return page === "locations" ? (
     <div>
@@ -28,16 +28,16 @@ function App() {
     <div>
       <NoFoundPokemon/>
     </div>
-    /* <div>
-      <h1>This location doesn't seem to have any pokémon</h1>
-      <button onClick={() => setPage("locations")}>Back</button>
-    </div> */
+    
   ) : page === "foundPokemon" ? (
-    <div className="pokemon-details">
+    <div>
+      <FoundPokemon setPage={setPage} foundPokemon={foundPokemon}/>
+    </div>
+    /* <div className="pokemon-details">
       <li>{foundPokemon.name}</li>
       <img src={foundPokemon.front_default} alt="" />
       <button onClick={handleFight}>Fight</button>
-    </div>
+    </div> */
   ) : page === "usersPokemons" ? (
       <div>
         <UsersPokemons />
