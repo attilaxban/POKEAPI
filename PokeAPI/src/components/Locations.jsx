@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
 
@@ -39,10 +40,13 @@ export default function Locations(props) {
     
           const pokemonResponse = await fetch(areaData.pokemon_encounters[0].pokemon.url);
           const pokemonData = await pokemonResponse.json();
-    
+
           setFoundPokemon({
             name: pokemonData.name,
-            front_default: pokemonData.sprites.front_default
+            front_default: pokemonData.sprites.front_default,
+            hp: pokemonData.stats[0].base_stat,
+            attack: pokemonData.stats[1].base_stat,
+            deffense: pokemonData.stats[2].base_stat
             });
     
           setPage("foundPokemon");
