@@ -60,7 +60,7 @@ export default function Locations(props) {
     };
     
     return (
-        <ul>
+        <ul id='locations'>
             {locations.map((loc, index) => (
                 <li key={index} onClick={handleClick} id={loc.name}>{loc.name}</li>
             ))}
