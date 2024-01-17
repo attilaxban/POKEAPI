@@ -56,7 +56,7 @@ export default function Locations(props) {
             });
     
           console.log(locations);
-          const restLocations = locations.filter(loc => loc.name !== event.target.textContent);
+          const restLocations = locations.filter(loc => loc.name !== event.target.textContent.toLowerCase());
           console.log(restLocations);
           setLocations(restLocations);
           console.log(locations);
@@ -71,7 +71,7 @@ export default function Locations(props) {
     return (
         <ul id='locations'>
             {locations.map((loc, index) => (
-                <li key={index} onClick={handleClick} id={loc.name}>{loc.name}</li>
+                <li key={index} onClick={handleClick} id={loc.name}>{loc.name.toUpperCase()}</li>
             ))}
         </ul>
     )
