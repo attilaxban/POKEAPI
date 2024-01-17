@@ -49,7 +49,7 @@ export default function Locations(props) {
 
           setFoundPokemon({
             name: pokemonData.name,
-            front_default: pokemonData.sprites.front_default,
+            img: pokemonData.sprites.front_default,
             hp: pokemonData.stats[0].base_stat,
             attack: pokemonData.stats[1].base_stat,
             deffense: pokemonData.stats[2].base_stat

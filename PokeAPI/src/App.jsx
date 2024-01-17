@@ -13,11 +13,46 @@ function App() {
   const [page, setPage] = useState('locations');
   const [foundPokemon, setFoundPokemon] = useState("");
   const [pickedPokemon, setPickedPokemon] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [usersPokemonsName, setUsersPokemonsName] = useState([]);
+ 
+  const usersPokemon = [
+    "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+    "https://pokeapi.co/api/v2/pokemon/charizard",
+    "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+  ];
+
+  
+  useEffect(() => {
+    console.log('useEff');
+    const fetchUsersPokemons = async () => {
+      try {
+        const fetchPromises = usersPokemon.map(async (pokemonUrl) => {
+          const response = await fetch(pokemonUrl);
+          const pokemonData = await response.json();
+          return {
+            name: pokemonData.name,
+            img: pokemonData.sprites.front_default,
+            hp: pokemonData.stats[0].base_stat,
+            attack: pokemonData.stats[1].base_stat,
+            deffense: pokemonData.stats[2].base_stat
+          };
+        });
+  
+        const newPokemons = await Promise.all(fetchPromises);
+        setUsersPokemonsName(newPokemons);
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchUsersPokemons();
+  }, []);
 
   const locationURL = 'https://pokeapi.co/api/v2/location';
-    const [locations, setLocations] = useState([]);
-
-    useEffect(() => {
+    
+  useEffect(() => {
       console.log("useEff");
       const fetchData = async () => {
           try {
@@ -35,7 +70,7 @@ function App() {
         };
     
         fetchData();
-    }, []);
+  }, []);
    
   return page === "locations" ? (
     <div>
@@ -54,14 +89,13 @@ function App() {
     
   ) : page === "usersPokemons" ? (
     <div>
-      <UsersPokemons setPickedPokemon={setPickedPokemon} setPage={setPage}/>
+      <UsersPokemons setPickedPokemon={setPickedPokemon} setPage={setPage} usersPokemonsName={usersPokemonsName}/>
     </div>
     
   ) : page === "battle" ? (
       <div>
-        <Battle pickedPokemon={pickedPokemon} setPickedPokemon={setPickedPokemon}
-        foundPokemon={foundPokemon} setFoundPokemon={setFoundPokemon}
-        setPage={setPage}/>
+        <Battle pickedPokemon={pickedPokemon} foundPokemon={foundPokemon}
+        setPage={setPage} usersPokemonsName={usersPokemonsName} setUsersPokemonsName={setUsersPokemonsName}/>
       </div>
       
   ) : (

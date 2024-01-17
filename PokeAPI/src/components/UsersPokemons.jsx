@@ -5,43 +5,9 @@ export default function UsersPokemons(props){
   //const pickedPokemon = props.pickedPokemon
   const setPickedPokemon = props.setPickedPokemon;
   const setPage = props.setPage;
-
-  const [usersPokemonsName, setUsersPokemonsName] = useState([]);
- 
-  const usersPokemon = [
-    "https://pokeapi.co/api/v2/pokemon/bulbasaur",
-    "https://pokeapi.co/api/v2/pokemon/charizard",
-    "https://pokeapi.co/api/v2/pokemon/poliwhirl"
-  ];
+  const usersPokemonsName = props.usersPokemonsName;
 
   
-  useEffect(() => {
-    console.log('useEff');
-    const fetchUsersPokemons = async () => {
-      try {
-        const fetchPromises = usersPokemon.map(async (pokemonUrl) => {
-          const response = await fetch(pokemonUrl);
-          const pokemonData = await response.json();
-          return {
-            name: pokemonData.name,
-            img: pokemonData.sprites.front_default,
-            hp: pokemonData.stats[0].base_stat,
-            attack: pokemonData.stats[1].base_stat,
-            deffense: pokemonData.stats[2].base_stat
-          };
-        });
-  
-        const newPokemons = await Promise.all(fetchPromises);
-        setUsersPokemonsName(newPokemons);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-  
-    fetchUsersPokemons();
-  }, []);
-
   const handleChoose = async (event) => {
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${event.target.id.toLowerCase()}`);
@@ -56,7 +22,7 @@ export default function UsersPokemons(props){
     setPage("battle");
   }
   return (
-    //pickedPokemon === "" ? (
+   
       <div className='users-pokemons'>
         {usersPokemonsName.map((pokemon, index) => (
           <div className='users-pokemon' id={pokemon.name} key={index}>
@@ -71,18 +37,8 @@ export default function UsersPokemons(props){
           </div>
         ))}
       </div>
-    //) : (
-      /* <div id='choosen-pokemon'>
-        <h2>Your choice:</h2>
-        <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
-        <img src={pickedPokemon.img} alt="" />
-        <p>
-          HP: {pickedPokemon.hp}<br></br>
-          ATK: {pickedPokemon.attack}<br></br>
-          DEF: {pickedPokemon.deffense}<br></br>
-        </p>
-      </div> */
+    
     )
-  //)
+ 
 
 }

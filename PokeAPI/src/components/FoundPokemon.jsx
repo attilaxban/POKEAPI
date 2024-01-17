@@ -10,7 +10,7 @@ export default function FoundPokemon(props){
     return(
         <div className="encounter-details">
             <h3>{foundPokemon.name.toUpperCase()}</h3>
-            <img src={foundPokemon.front_default} alt="" />
+            <img src={foundPokemon.img} alt="" />
             <p>
                 HP:{foundPokemon.hp}<br></br>
                 ATK:{foundPokemon.attack}<br></br>
