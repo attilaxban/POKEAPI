@@ -36,13 +36,15 @@ export default function Locations(props) {
       
       console.log(event.target.textContent);
         try {
-          const locationResponse = await fetch(`https://pokeapi.co/api/v2/location/${event.target.textContent}/`);
+          const locationResponse = await fetch(`https://pokeapi.co/api/v2/location/${event.target.id}/`);
           const locationData = await locationResponse.json();
               
-          const areaResponse = await fetch(locationData.areas[0].url);
+          const randomArea = Math.floor(Math.random() * locationData.areas.length);
+          const areaResponse = await fetch(locationData.areas[randomArea].url);
           const areaData = await areaResponse.json();
     
-          const pokemonResponse = await fetch(areaData.pokemon_encounters[0].pokemon.url);
+          const randomEncounter = Math.floor(Math.random() * areaData.pokemon_encounters.length);
+          const pokemonResponse = await fetch(areaData.pokemon_encounters[randomEncounter].pokemon.url);
           const pokemonData = await pokemonResponse.json();
 
           setFoundPokemon({

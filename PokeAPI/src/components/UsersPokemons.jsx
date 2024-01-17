@@ -58,7 +58,6 @@ export default function UsersPokemons(props){
   return (
     //pickedPokemon === "" ? (
       <div className='users-pokemons'>
-        <h2>Pick a pokemon:</h2>
         {usersPokemonsName.map((pokemon, index) => (
           <div className='users-pokemon' id={pokemon.name} key={index}>
             <h2 id="user-pokemon">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</h2>
