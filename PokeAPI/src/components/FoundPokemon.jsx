@@ -1,3 +1,6 @@
+import React from "react";
+import './FoundPokemon.css';
+
 export default function FoundPokemon(props){
     
     const setPage = props.setPage;
@@ -6,6 +9,11 @@ export default function FoundPokemon(props){
     const handleFight = () => {
         setPage("usersPokemons");
     };
+
+    const handleChoose = () => {
+        setPage("locations")
+    }
+
     
     return(
         <div className="encounter-details">
@@ -16,7 +24,14 @@ export default function FoundPokemon(props){
                 ATK:{foundPokemon.attack}<br></br>
                 DEF:{foundPokemon.deffense}<br></br>
             </p>
+            <div>
+
             <button onClick={handleFight}>Pick a pokemon</button>
+            </div>
+            <div>
+
+            <button onClick={handleChoose}>Choose another location</button>
+            </div>
         </div>
     )
 }

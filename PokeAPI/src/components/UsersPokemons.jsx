@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './UsersPokemons.css';
 
 export default function UsersPokemons(props){
     
@@ -33,7 +34,7 @@ export default function UsersPokemons(props){
               ATK: {pokemon.attack}<br></br>
               DEF: {pokemon.deffense}<br></br>
             </p>
-            <button id={pokemon.name} onClick={handleChoose}>Pick {pokemon.name}</button>
+            <button id={pokemon.name} onClick={handleChoose}>Pick {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</button>
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
+import './Locations.css';
 
 export default function Locations(props) {
     
@@ -69,11 +70,11 @@ export default function Locations(props) {
     };
     
     return (
-        <ul id='locations'>
+        <div id='locations'>
             {locations.map((loc, index) => (
-                <li key={index} onClick={handleClick} id={loc.name}>{loc.name.toUpperCase()}</li>
+                <div key={index} onClick={handleClick} id={loc.name}>{loc.name.toUpperCase()}</div>
             ))}
-        </ul>
+        </div>
     )
         
 }
