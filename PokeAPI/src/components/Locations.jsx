@@ -6,12 +6,15 @@ export default function Locations(props) {
     
     const setFoundPokemon = props.setFoundPokemon;
     const setPage = props.setPage;
+    const locations = props.locations;
+    const setLocations = props.setLocations;
 
-    const locationURL = 'https://pokeapi.co/api/v2/location';
+    /* const locationURL = 'https://pokeapi.co/api/v2/location';
     const [locations, setLocations] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+      console.log("useEff");
+      const fetchData = async () => {
           try {
             const response = await fetch(locationURL);
             if (!response.ok) {
@@ -19,6 +22,7 @@ export default function Locations(props) {
             }
     
             const data = await response.json();
+            console.log(data.results.slice(0, 20));
             setLocations(data.results.slice(0, 20));
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -26,15 +30,15 @@ export default function Locations(props) {
         };
     
         fetchData();
-    }, []);
+    }, []); */
 
     const handleClick = async (event) => {
-        console.log(event.target.textContent);
+      
+      console.log(event.target.textContent);
         try {
           const locationResponse = await fetch(`https://pokeapi.co/api/v2/location/${event.target.textContent}/`);
           const locationData = await locationResponse.json();
-          console.log(locationData);
-    
+              
           const areaResponse = await fetch(locationData.areas[0].url);
           const areaData = await areaResponse.json();
     
@@ -49,10 +53,13 @@ export default function Locations(props) {
             deffense: pokemonData.stats[2].base_stat
             });
     
+          console.log(locations);
+          const restLocations = locations.filter(loc => loc.name !== event.target.textContent);
+          console.log(restLocations);
+          setLocations(restLocations);
+          console.log(locations);
+
           setPage("foundPokemon");
-          setLocations((prevLocations) =>
-            prevLocations.filter((loc) => loc !== location)
-          );
 
         } catch (error) {
           console.error('Error fetching data:', error);
