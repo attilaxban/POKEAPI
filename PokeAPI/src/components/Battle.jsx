@@ -68,7 +68,7 @@ export default function Battle(props) {
 
 
             <div id='choosen-pokemon'>
-                <h2>Your choice:</h2>
+              
                 <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
                 <img src={pickedPokemon.img} alt="" />
                 <p>
@@ -83,9 +83,9 @@ export default function Battle(props) {
                     <h2>Enemy's HP:{parseInt(HPEnemy * 100) / 100}</h2><br />
                 </div>
 
-                <div onClick>Press Space</div>
+                <div id="press-space">Press Space</div>
             </div><div id="encounter">
-                <h2>The enemy pokemon is:</h2>
+              
                 <h3>{foundPokemon.name.charAt(0).toUpperCase() + foundPokemon.name.slice(1).toLowerCase()}</h3>
                 <img src={foundPokemon.img} alt="" />
                 <p>
