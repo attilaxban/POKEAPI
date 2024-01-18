@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './Battle.css';
 
 export default function Battle(props) {
-  
+
 
     const pickedPokemon = props.pickedPokemon;
     const foundPokemon = props.foundPokemon;
@@ -16,8 +16,26 @@ export default function Battle(props) {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.keyCode === 32) { 
+            if (event.keyCode === 32) {
                 battlePoke(event);
+                document.querySelector('#choosen-pokemon').className = "active";
+                setTimeout(function () {
+                    document.querySelector('#choosen-pokemon').classList.remove("active");
+                }, 1000);
+
+                document.querySelector('#encounter').className = "active";
+                setTimeout(function () {
+                    document.querySelector('#encounter').classList.remove("active");
+                }, 1000);
+
+                document.querySelector('#fight-stats').className = "active";
+                setTimeout(function () {
+                    document.querySelector('#fight-stats').classList.remove("active");
+                }, 1000);
+                document.body.classList.add('active');
+                setTimeout(function () {
+                    document.body.classList.remove('active');
+                }, 1000);
             }
         };
 
@@ -26,17 +44,17 @@ export default function Battle(props) {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [battlePage, HPUser, HPEnemy]); 
+    }, [battlePage, HPUser, HPEnemy]);
 
     const battlePoke = (event) => {
         event.preventDefault();
 
         let damage;
         let randomNum;
-       
+
         randomNum = Math.floor(Math.random() * (255 - 217 + 1)) + 217;
         damage = ((((2 / 5 + 2) * pickedPokemon.attack * 60 / foundPokemon.deffense) / 50) + 2) * randomNum / 255;
-        
+
         setHPEnemy(Math.max(HPEnemy - damage, 0));
 
         if (Math.max(HPEnemy - damage, 0) === 0) {
@@ -47,7 +65,7 @@ export default function Battle(props) {
 
         randomNum = Math.floor(Math.random() * (255 - 217 + 1)) + 217;
         damage = ((((2 / 5 + 2) * foundPokemon.attack * 60 / pickedPokemon.deffense) / 50) + 2) * randomNum / 255;
-        
+
         setHPuser(Math.max(HPUser - damage, 0));
 
         if (Math.max(HPUser - damage, 0) === 0) {
@@ -68,11 +86,11 @@ export default function Battle(props) {
 
 
             <div id='choosen-pokemon'>
-              
+
                 <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
                 <img src={pickedPokemon.img} alt="" />
                 <p>
-                    HP: {parseInt(HPUser * 100) / 100}<br></br>
+                    HP: {pickedPokemon.hp}<br></br>
                     ATK: {pickedPokemon.attack}<br></br>
                     DEF: {pickedPokemon.deffense}<br></br>
                 </p>
@@ -85,11 +103,11 @@ export default function Battle(props) {
 
                 <div id="press-space">Press Space</div>
             </div><div id="encounter">
-              
+
                 <h3>{foundPokemon.name.charAt(0).toUpperCase() + foundPokemon.name.slice(1).toLowerCase()}</h3>
                 <img src={foundPokemon.img} alt="" />
                 <p>
-                    HP: {parseInt(HPEnemy * 100) / 100}<br></br>
+                    HP: {foundPokemon.hp}<br></br>
                     ATK: {foundPokemon.attack}<br></br>
                     DEF: {foundPokemon.deffense}<br></br>
                 </p>

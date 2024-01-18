@@ -12,6 +12,34 @@ body{
   padding: 2rem;
 }
 
+body.active{
+  animation:bodyLightning 1s ease-in-out;
+  background-color: #1f1f1f;
+  border: 1px solid #000;
+  border-radius: 15px;
+}
+
+
+@keyframes bodyLightning {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
 
 
 @keyframes fade {
@@ -32,6 +60,51 @@ body{
   }
   100%{
     transform: scale(1.05);
+  }
+}
+
+@keyframes hitRotate{
+  0%{
+    transform: rotateY('90deg');
+  }
+  50%{
+    transform: rotateY(180deg);
+  }
+  100%{
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate3d(-10px, 0, 0);
+  } 
+  20%, 40%, 60%, 80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes lightning {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+    transform: translateY(-5px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  75% {
+    opacity: 0.7;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -264,6 +337,14 @@ body{
     color:#000000;
     background-color: #fff;
   }
+
+  #choosen-pokemon.active{
+    position: relative;
+    animation: fade 5s ease-out forwards, shake 1s ease-in-out;
+  }
+  #encounter.active{
+    animation:fade 5s ease-out forwards, shake 1s ease-in-out;
+  }
   
   /* ------------------------- */
   
@@ -283,6 +364,24 @@ body{
     background-color: #373636;
     animation: fade 2s ease-out forwards;
   }
+
+  #fight-stats.active{
+    position: relative;
+    animation: fade 5s ease-out forwards, lightning 4s ease-in-out;
+  }
+  /* #fight-stats.active::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 70%;
+  background-color: #fff;
+  animation: lightning 0.5s ease-in-out;
+  transform-origin: bottom;
+  } */
+
+ 
   
   
   #lost-button {
