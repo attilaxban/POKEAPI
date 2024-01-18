@@ -1,3 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import './Battle.css';
 
@@ -14,39 +18,17 @@ export default function Battle(props) {
     const [HPUser, setHPuser] = useState(pickedPokemon.hp);
     const [HPEnemy, setHPEnemy] = useState(foundPokemon.hp);
 
+    
+    const [active,setActive] = useState(false)
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.keyCode === 32) {
                 battlePoke(event);
 
                 if (HPEnemy > 2 && HPUser > 2) {
-                    document.querySelector('#choosen-pokemon').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#choosen-pokemon').classList.remove("active");
-                    }, 1000);
-
-                    document.querySelector('#encounter').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#encounter').classList.remove("active");
-                    }, 1000);
-
-                    document.querySelector('#fight-stats').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#fight-stats').classList.remove("active");
-                    }, 1000);
-
-                    document.querySelector('#user').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#user').classList.remove("active");
-                    }, 1000);
-
-                    document.querySelector('#enemy').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#enemy').classList.remove("active");
-                    }, 1000);
-                    document.querySelector('#attack-flash').className = "active";
-                    setTimeout(function () {
-                        document.querySelector('#attack-flash').classList.remove("active");
+                    setActive(true)
+                    setTimeout(() => {
+                        setActive(false)
                     }, 1000);
                 }
             }
@@ -58,6 +40,51 @@ export default function Battle(props) {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [battlePage, HPUser, HPEnemy]);
+
+    // useEffect(() => {
+    //     const handleKeyDown = (event) => {
+    //         if (event.keyCode === 32) {
+    //             battlePoke(event);
+
+    //             if (HPEnemy > 2 && HPUser > 2) {
+    //                 document.querySelector('#choosen-pokemon').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#choosen-pokemon').classList.remove("active");
+    //                 }, 1000);
+
+    //                 document.querySelector('#encounter').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#encounter').classList.remove("active");
+    //                 }, 1000);
+
+    //                 document.querySelector('#fight-stats').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#fight-stats').classList.remove("active");
+    //                 }, 1000);
+
+    //                 document.querySelector('#user').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#user').classList.remove("active");
+    //                 }, 1000);
+
+    //                 document.querySelector('#enemy').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#enemy').classList.remove("active");
+    //                 }, 1000);
+    //                 document.querySelector('#attack-flash').className = "active";
+    //                 setTimeout(function () {
+    //                     document.querySelector('#attack-flash').classList.remove("active");
+    //                 }, 1000);
+    //             }
+    //         }
+    //     };
+
+    //     window.addEventListener('keydown', handleKeyDown);
+
+    //     return () => {
+    //         window.removeEventListener('keydown', handleKeyDown);
+    //     };
+    // }, [battlePage, HPUser, HPEnemy]);
 
     const battlePoke = (event) => {
         event.preventDefault();
@@ -106,9 +133,9 @@ export default function Battle(props) {
     return battlePage === "battle" ? (
         <div>
             <div id='pokemon-summary'>
-          
-                <div id="attack-flash"></div>
-                <div id='choosen-pokemon'>
+
+                <div id="attack-flash" className={active ? 'active' : ''}></div>
+                <div id="choosen-pokemon" className={active ? 'active' : ''}>
                     <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
                     <img id="user" src={pickedPokemon.img} alt="" />
                     <p>
@@ -118,14 +145,14 @@ export default function Battle(props) {
                     </p>
                 </div>
 
-                
+
                 <div id="fight-button">
-                    <div id="fight-stats">
+                    <div id="fight-stats" className={active ? 'active' : ''}>
                         <h2>Your HP:{parseInt(HPUser * 100) / 100}</h2>
                         <h2>Enemy's HP:{parseInt(HPEnemy * 100) / 100}</h2><br />
                     </div>
                     <div id="press-space">Press Space</div>
-                </div><div id="encounter">
+                </div> <div id="encounter" className={active ? 'active' : ''}>
                     <h3>{foundPokemon.name.charAt(0).toUpperCase() + foundPokemon.name.slice(1).toLowerCase()}</h3>
                     <img id="enemy" src={foundPokemon.img} alt="" />
                     <p>
