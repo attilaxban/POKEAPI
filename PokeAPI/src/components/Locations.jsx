@@ -32,8 +32,13 @@ export default function Locations(props) {
     
         fetchData();
     }, []); */
+    if(locations.length === 1){
+      location.reload();
+    }
 
     const handleClick = async (event) => {
+
+      
       
       console.log(event.target.textContent);
         try {
@@ -61,7 +66,7 @@ export default function Locations(props) {
           console.log(restLocations);
           setLocations(restLocations);
           console.log(locations);
-
+            
           setPage("foundPokemon");
 
         } catch (error) {

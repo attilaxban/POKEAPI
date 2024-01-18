@@ -18,24 +18,37 @@ export default function Battle(props) {
         const handleKeyDown = (event) => {
             if (event.keyCode === 32) {
                 battlePoke(event);
-                document.querySelector('#choosen-pokemon').className = "active";
-                setTimeout(function () {
-                    document.querySelector('#choosen-pokemon').classList.remove("active");
-                }, 1000);
 
-                document.querySelector('#encounter').className = "active";
-                setTimeout(function () {
-                    document.querySelector('#encounter').classList.remove("active");
-                }, 1000);
+                if (HPEnemy > 2 && HPUser > 2) {
+                    document.querySelector('#choosen-pokemon').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#choosen-pokemon').classList.remove("active");
+                    }, 1000);
 
-                document.querySelector('#fight-stats').className = "active";
-                setTimeout(function () {
-                    document.querySelector('#fight-stats').classList.remove("active");
-                }, 1000);
-                document.body.classList.add('active');
-                setTimeout(function () {
-                    document.body.classList.remove('active');
-                }, 1000);
+                    document.querySelector('#encounter').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#encounter').classList.remove("active");
+                    }, 1000);
+
+                    document.querySelector('#fight-stats').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#fight-stats').classList.remove("active");
+                    }, 1000);
+
+                    document.querySelector('#user').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#user').classList.remove("active");
+                    }, 1000);
+
+                    document.querySelector('#enemy').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#enemy').classList.remove("active");
+                    }, 1000);
+                    document.querySelector('#attack-flash').className = "active";
+                    setTimeout(function () {
+                        document.querySelector('#attack-flash').classList.remove("active");
+                    }, 1000);
+                }
             }
         };
 
@@ -60,7 +73,16 @@ export default function Battle(props) {
         if (Math.max(HPEnemy - damage, 0) === 0) {
             console.log("win");
             setBattlePage("win");
-            setUsersPokemonsName([...usersPokemonsName, foundPokemon])
+            let includePokemon = false
+            for (let i = 0; i < usersPokemonsName.length; i++) {
+                if (usersPokemonsName[i].name === foundPokemon.name) {
+                    includePokemon = true;
+                }
+            }
+            if (includePokemon === false) {
+                setUsersPokemonsName([...usersPokemonsName, foundPokemon])
+            }
+
         }
 
         randomNum = Math.floor(Math.random() * (255 - 217 + 1)) + 217;
@@ -82,38 +104,37 @@ export default function Battle(props) {
 
 
     return battlePage === "battle" ? (
-        <div id='pokemon-summary'>
-
-
-            <div id='choosen-pokemon'>
-
-                <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
-                <img src={pickedPokemon.img} alt="" />
-                <p>
-                    HP: {pickedPokemon.hp}<br></br>
-                    ATK: {pickedPokemon.attack}<br></br>
-                    DEF: {pickedPokemon.deffense}<br></br>
-                </p>
-            </div>
-            <div id="fight-button">
-                <div id="fight-stats">
-                    <h2>Your HP:{parseInt(HPUser * 100) / 100}</h2>
-                    <h2>Enemy's HP:{parseInt(HPEnemy * 100) / 100}</h2><br />
+        <div>
+            <div id='pokemon-summary'>
+          
+                <div id="attack-flash"></div>
+                <div id='choosen-pokemon'>
+                    <h3>{pickedPokemon.name.charAt(0).toUpperCase() + pickedPokemon.name.slice(1).toLowerCase()}</h3>
+                    <img id="user" src={pickedPokemon.img} alt="" />
+                    <p>
+                        HP: {pickedPokemon.hp}<br></br>
+                        ATK: {pickedPokemon.attack}<br></br>
+                        DEF: {pickedPokemon.deffense}<br></br>
+                    </p>
                 </div>
 
-                <div id="press-space">Press Space</div>
-            </div><div id="encounter">
-
-                <h3>{foundPokemon.name.charAt(0).toUpperCase() + foundPokemon.name.slice(1).toLowerCase()}</h3>
-                <img src={foundPokemon.img} alt="" />
-                <p>
-                    HP: {foundPokemon.hp}<br></br>
-                    ATK: {foundPokemon.attack}<br></br>
-                    DEF: {foundPokemon.deffense}<br></br>
-                </p>
+                
+                <div id="fight-button">
+                    <div id="fight-stats">
+                        <h2>Your HP:{parseInt(HPUser * 100) / 100}</h2>
+                        <h2>Enemy's HP:{parseInt(HPEnemy * 100) / 100}</h2><br />
+                    </div>
+                    <div id="press-space">Press Space</div>
+                </div><div id="encounter">
+                    <h3>{foundPokemon.name.charAt(0).toUpperCase() + foundPokemon.name.slice(1).toLowerCase()}</h3>
+                    <img id="enemy" src={foundPokemon.img} alt="" />
+                    <p>
+                        HP: {foundPokemon.hp}<br></br>
+                        ATK: {foundPokemon.attack}<br></br>
+                        DEF: {foundPokemon.deffense}<br></br>
+                    </p>
+                </div>
             </div>
-
-
         </div>
     ) : battlePage === "win" ? (
         <div>
