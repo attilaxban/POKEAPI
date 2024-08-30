@@ -3,7 +3,6 @@ import './UsersPokemons.css';
 
 export default function UsersPokemons(props){
     
-  //const pickedPokemon = props.pickedPokemon
   const setPickedPokemon = props.setPickedPokemon;
   const setPage = props.setPage;
   const usersPokemonsName = props.usersPokemonsName;
